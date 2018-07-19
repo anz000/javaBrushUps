@@ -25,6 +25,10 @@ public class Employee {
 		this.yearJoined = joinDate;
 	}
 
+	/**
+	 * This method returns the structure of the object in CSV format
+	 * @return comma-delimited values
+	 */
 	public String toCSV() {
 		return firstName + "," + id + "," + lastName + "," + ssn
 				+ "," + salary + "," + yearJoined;
