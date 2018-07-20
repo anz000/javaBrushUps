@@ -92,14 +92,14 @@ public class EmpCollctionApplication {
 	 */
 	private static void setDummyData() {
 		employeeList.add(new Employee(1001,"Mark",7000.0,"Male"));
-		employeeList.add(new Employee(1001,"Anuj",91000.0,"Male"));
-		employeeList.add(new Employee(1001,"Simone",88000.0,"Female"));
-		employeeList.add(new Employee(1001,"Aaron",7500.0,"Other"));
-		employeeList.add(new Employee(1001,"Steven",55000.0,"Male"));
-		employeeList.add(new Employee(1001,"Wilson",12000.0,"Female"));
-		employeeList.add(new Employee(1001,"Varrg",16000.0,"Female"));
-		employeeList.add(new Employee(1001,"Mikael",6000.0,"Female"));
-		employeeList.add(new Employee(1001,"Kevin",27000.0,"Male"));		
+		employeeList.add(new Employee(1002,"Anuj",91000.0,"Male"));
+		employeeList.add(new Employee(100,"Simone",88000.0,"Female"));
+		employeeList.add(new Employee(11,"Aaron",7500.0,"Other"));
+		employeeList.add(new Employee(21,"Steven",55000.0,"Male"));
+		employeeList.add(new Employee(3001,"Wilson",12000.0,"Female"));
+		employeeList.add(new Employee(4401,"Varrg",16000.0,"Female"));
+		employeeList.add(new Employee(601,"Mikael",6000.0,"Female"));
+		employeeList.add(new Employee(1201,"Kevin",27000.0,"Male"));		
 	}
 
 	/**
