@@ -3,7 +3,6 @@
  */
 package anuz.collections.employeeOp;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public interface EmployeeOpInterface {
 	 * @return the updated Employee list after removal
 	 * @throws EmployeeNotFoundException if the employee id is not found
 	 */
-	public List<Employee> deleteEmployee(List<Employee> eList, int id) 
+	public List<Employee> deleteEmployee(int id) 
 			throws EmployeeNotFoundException;
 	
 	/**
@@ -41,7 +40,7 @@ public interface EmployeeOpInterface {
 	 * @throws EmployeeNotFoundException If the employee ID is not found
 	 * @throws InvalidSalaryException If the salary is below 5000
 	 */
-	public List<Employee> updateEmployee(List<Employee> eList, int id, String name, double salary, String gender)
+	public List<Employee> updateEmployee(int id, String name, double salary, String gender)
 			throws EmployeeNotFoundException, InvalidSalaryException;
 	
 	/**
@@ -51,54 +50,54 @@ public interface EmployeeOpInterface {
 	 * @return The employee with the given ID
 	 * @throws EmployeeNotFoundException If the employee ID is not found
 	 */
-	public Employee readEmployee(List<Employee> eList, int id) throws EmployeeNotFoundException;
+	public Employee readEmployee(int id) throws EmployeeNotFoundException;
 	
 	/**
 	 * This method will calculate the gross salary of all the employees
 	 * @param eList
 	 * @return The gross salary value
 	 */
-	public double calculateGrossSalary(List<Employee> eList);
+	public double calculateGrossSalary();
 	
 	/**
 	 * This method will calculate the HRA
 	 * @param eList
 	 * @return The HRA value
 	 */
-	public double calculateHRA(List<Employee> eList);
+	public double calculateHRA();
 	
 	/**
 	 * This method will group the employees into gender category
 	 * @param eList
 	 * @return List of List containing employees in each gender
 	 */
-	public Map<String,List<Employee>> groupByGender(List<Employee> eList);
+	public Map<String,List<Employee>> groupByGender();
 	
 	/**
 	 * This method will sort the employees by Age
 	 * @param eList
 	 * @return The list of employees sorted by age in ascending order
 	 */
-	public List<Employee> sortByName(List<Employee> eList);
+	public List<Employee> sortByName();
 	
 	/**
 	 * This method will sort the employees by Salary
 	 * @param eList
 	 * @return The list of employees sorted by salary in ascending order
 	 */
-	public List<Employee> sortBySalary(List<Employee> eList);
+	public List<Employee> sortBySalary();
 	
 	/**
 	 * This method will sort the employees by ID
 	 * @param eList
 	 * @return The list of employees sorted by ID in ascending order
 	 */
-	public List<Employee> sortById(List<Employee> eList);
+	public List<Employee> sortById();
 	
 	/**
 	 * This method will group the employees into 2 category : above or below average salary
 	 * @param eList
 	 * @return List of List containing employees in each above/below av. salary
 	 */
-	public Map<String,List<Employee>> groupByAvSalary(List<Employee> eList);
+	public Map<String,List<Employee>> groupByAvSalary();
 }

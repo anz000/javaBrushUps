@@ -1,12 +1,9 @@
 
 package anuz.collections.employeeOp;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 
 /**
  * @author anz
@@ -14,7 +11,6 @@ import java.util.Scanner;
  */
 public class EmpCollctionApplication {
 
-	private static List<Employee> employeeList = new ArrayList<>();
 	private static EmployeeCollectionOperations eOperations = new EmployeeCollectionOperations();
 
 	/**
@@ -73,40 +69,55 @@ public class EmpCollctionApplication {
 			case 11:
 				groupByAvSalary();
 				break;
-				
+
 			case 12:
 				setDummyData();
 				break;
+				
+			case 13:
+				System.out.println(eOperations);
+				break;
 
-			default:
+			case 14:
 				System.out.println(" Exiting Now.. Bye!! ");
 				System.exit(0); // terminates the program
+				break;
+				
+			default:
+				System.out.println(" Wrong Selection. Please select from the menu.");
 				break;
 			}
 		}
 
 	}
-	
+
 	/**
 	 * This method populates the employee list with dummy data for testing purpose
 	 */
 	private static void setDummyData() {
-		employeeList.add(new Employee(1001,"Mark",7000.0,"Male"));
-		employeeList.add(new Employee(1002,"Anuj",91000.0,"Male"));
-		employeeList.add(new Employee(100,"Simone",88000.0,"Female"));
-		employeeList.add(new Employee(11,"Aaron",7500.0,"Other"));
-		employeeList.add(new Employee(21,"Steven",55000.0,"Male"));
-		employeeList.add(new Employee(3001,"Wilson",12000.0,"Female"));
-		employeeList.add(new Employee(4401,"Varrg",16000.0,"Female"));
-		employeeList.add(new Employee(601,"Mikael",6000.0,"Female"));
-		employeeList.add(new Employee(1201,"Kevin",27000.0,"Male"));		
+		try {
+			eOperations.createEmployee(1001, "Mark", 7000.0, "Male");
+			eOperations.createEmployee(1002, "Anuj", 91000.0, "Male");
+			eOperations.createEmployee(100, "Simone", 88000.0, "Female");
+			eOperations.createEmployee(11, "Aaron", 7500.0, "Other");
+			eOperations.createEmployee(21, "Steven", 55000.0, "Male");
+			eOperations.createEmployee(3001, "Wilson", 12000.0, "Female");
+			eOperations.createEmployee(4401, "Varrg", 16000.0, "Female");
+			eOperations.createEmployee(601, "Mikael", 6000.0, "Female");
+			eOperations.createEmployee(1201, "Kevin", 27000.0, "Male");
+		} catch (InvalidSalaryException e) {
+			System.out.println(e.getMessage());
+			//e.printStackTrace();
+		}
 	}
 
 	/**
 	 * This method displays the menu and then returns the selected option
+	 * 
 	 * @return (int) the selected option
 	 */
 	private static int displayAndSelectMenu() {
+		System.out.println();
 		System.out.println(" *** **** MENU **** ***");
 		System.out.println(" 1. Create Employee");
 		System.out.println(" 2. Read Employee");
@@ -120,7 +131,8 @@ public class EmpCollctionApplication {
 		System.out.println(" 10. Sort by Salary");
 		System.out.println(" 11. Group by Salary");
 		System.out.println(" 12. Set Dummy data");
-		System.out.println(" 13. Exit");
+		System.out.println(" 13. Show All Employee List");
+		System.out.println(" 14. Exit");
 
 		int selection = 0;
 		Scanner scan = new Scanner(System.in);
@@ -135,7 +147,7 @@ public class EmpCollctionApplication {
 	}
 
 	/**
-	 * This method asks for employee details and add it to the list  of employees
+	 * This method asks for employee details and add it to the list of employees
 	 * Handles Invalid Salary exception if the salary is less than 5000
 	 */
 	private static void createEmployee() {
@@ -157,8 +169,9 @@ public class EmpCollctionApplication {
 			String gender = scan.next();
 
 			Employee temp = eOperations.createEmployee(id, name, salary, gender);
-			employeeList.add(temp);
+
 			System.out.println("Succesfully created !!");
+			System.out.println(temp);
 			// } catch (InvalidSalaryException e) {
 			// System.out.println(e.getMessage());
 		} catch (Exception e) {
@@ -167,16 +180,16 @@ public class EmpCollctionApplication {
 	}
 
 	/**
-	 * This method asks for an ID and finds the corresponding employee
-	 * Handles exception if the ID is not found
+	 * This method asks for an ID and finds the corresponding employee Handles
+	 * exception if the ID is not found
 	 */
 	private static void readEmployee() {
 		Scanner scan = new Scanner(System.in);
 		try {
 			System.out.println("Enter the ID of the employee that you want to read");
 			int rId = scan.nextInt();
-			Employee temp = eOperations.readEmployee(employeeList, rId); // find the employee with the ID from the array
-																			// and return it
+			Employee temp = eOperations.readEmployee(rId); // find the employee with the ID from the array
+															// and return it
 			System.out.println(temp);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -192,34 +205,34 @@ public class EmpCollctionApplication {
 		try {
 			System.out.println("Enter the ID of the employee that you want to update");
 			int updateId = scan.nextInt();
-			
+
 			System.out.println("Type name.");
 			String uName = scan.next();
-			
+
 			System.out.println("Type salary.");
 			double uSalary = scan.nextDouble();
-			
+
 			System.out.println("Type gender.");
 			String uGender = scan.next();
-			
+
 			// updates the given employee with new info and returns the whole array
-			employeeList = eOperations.updateEmployee(employeeList, updateId, uName, uSalary, uGender);
+			eOperations.updateEmployee(updateId, uName, uSalary, uGender);
 		} catch (EmployeeNotFoundException | InvalidSalaryException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	/**
-	 * This method asks for employee ID and then deletes it
-	 * Handles exception if id not found
+	 * This method asks for employee ID and then deletes it Handles exception if id
+	 * not found
 	 */
 	private static void deleteEmployee() {
 		Scanner scan = new Scanner(System.in);
 		try {
 			System.out.println("Enter the Id of employee to be deleted");
 			int deleteId = scan.nextInt();
-				
-			employeeList = eOperations.deleteEmployee(employeeList, deleteId);// deletes the employee with the ID and returns the array
+
+			eOperations.deleteEmployee(deleteId);// deletes the employee with the ID and returns the array
 		} catch (EmployeeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -229,23 +242,23 @@ public class EmpCollctionApplication {
 	 * This method calculates the gross salary
 	 */
 	private static void calcGrossSalary() {
-		System.out.println("The HRA @" + Employee.reimburseHRA + " : " + eOperations.calculateGrossSalary(employeeList));
+		System.out.println("The HRA @" + Employee.reimburseHRA + " : " + eOperations.calculateGrossSalary());
 	}
 
 	/**
 	 * This method calculates the HRA
 	 */
 	private static void calcHRA() {
-		System.out.println("The Gross salary of employees : " + eOperations.calculateHRA(employeeList));
+		System.out.println("The Gross salary of employees : " + eOperations.calculateHRA());
 	}
 
 	/**
 	 * This method groups the employees by the unique values in gender
 	 */
 	private static void groupByGender() {
-		//setDummyData();
-		Map<String, List<Employee>> grpGenderEList = eOperations.groupByGender(employeeList);
-		
+		// setDummyData();
+		Map<String, List<Employee>> grpGenderEList = eOperations.groupByGender();
+
 		System.out.println(grpGenderEList);
 
 	}
@@ -254,8 +267,8 @@ public class EmpCollctionApplication {
 	 * This method sorts the employees by ID in ascending order
 	 */
 	private static void sortByID() {
-		//setDummyData();
-		List<Employee> temp = eOperations.sortById(employeeList);
+		// setDummyData();
+		List<Employee> temp = eOperations.sortById();
 		System.out.println(temp);
 	}
 
@@ -263,8 +276,8 @@ public class EmpCollctionApplication {
 	 * This method sorts the employees by age in ascending order
 	 */
 	private static void sortByName() {
-		//setDummyData();
-		List<Employee> temp = eOperations.sortByName(employeeList);
+		// setDummyData();
+		List<Employee> temp = eOperations.sortByName();
 		System.out.println(temp);
 	}
 
@@ -272,18 +285,19 @@ public class EmpCollctionApplication {
 	 * This method sorts the employees by salary in ascending order
 	 */
 	private static void sortBySalary() {
-		//setDummyData();
-		List<Employee> temp = eOperations.sortBySalary(employeeList);
+		// setDummyData();
+		List<Employee> temp = eOperations.sortBySalary();
 		System.out.println(temp);
 	}
 
 	/**
-	 * This method divides the employee list into below average and equal/above average
+	 * This method divides the employee list into below average and equal/above
+	 * average
 	 */
 	private static void groupByAvSalary() {
-		//setDummyData();
-		Map<String, List<Employee>> grpAvSalaryEList = eOperations.groupByAvSalary(employeeList);
-		
+		// setDummyData();
+		Map<String, List<Employee>> grpAvSalaryEList = eOperations.groupByAvSalary();
+
 		System.out.println(grpAvSalaryEList);
 	}
 }

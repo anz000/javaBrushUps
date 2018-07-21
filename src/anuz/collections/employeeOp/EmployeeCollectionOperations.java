@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
  */
 public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
+	private List<Employee> eList = new ArrayList<>();
+	
 	/**
 	 * This method will create a employee
 	 * @param id
@@ -32,18 +34,21 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 			throw new InvalidSalaryException("Salary has to be greater than 5000.");
 
 		// if no errors then return the new employee
-		return new Employee(id, name, salary, gender);
+		Employee newEmp = new Employee(id, name, salary, gender);
+		
+		eList.add(newEmp);
+		
+		return newEmp;
 	}
 
 	/**
 	 * This method will delete the employee with the given id
-	 * @param eList
 	 * @param id
 	 * @return the updated Employee list after removal
 	 * @throws EmployeeNotFoundException if the employee id is not found
 	 */
 	@Override
-	public List<Employee> deleteEmployee(List<Employee> eList, int id) throws EmployeeNotFoundException {
+	public List<Employee> deleteEmployee(int id) throws EmployeeNotFoundException {
 		boolean dFlag = false;
 		for (int i = 0; i < eList.size(); i++) {
 			if (eList.get(i).getId() == id) {
@@ -61,7 +66,6 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will update the Employee with the given ID with the given information
-	 * @param eList
 	 * @param id
 	 * @param name
 	 * @param salary
@@ -71,7 +75,7 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 	 * @throws InvalidSalaryException If the salary is below 5000
 	 */
 	@Override
-	public List<Employee> updateEmployee(List<Employee> eList, int id, String name, double salary, String gender)
+	public List<Employee> updateEmployee(int id, String name, double salary, String gender)
 			throws EmployeeNotFoundException, InvalidSalaryException {
 
 		boolean uFlag = false;
@@ -97,13 +101,12 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will return the employee with the given ID
-	 * @param eList
 	 * @param id
 	 * @return The employee with the given ID
 	 * @throws EmployeeNotFoundException If the employee ID is not found
 	 */
 	@Override
-	public Employee readEmployee(List<Employee> eList, int id) throws EmployeeNotFoundException {
+	public Employee readEmployee(int id) throws EmployeeNotFoundException {
 		int rIndexer = -1;
 		for (int i = 0; i < eList.size(); i++) {
 			if (eList.get(i).getId() == id) {
@@ -120,11 +123,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will calculate the gross salary of all the employees
-	 * @param eList
 	 * @return The gross salary value
 	 */
 	@Override
-	public double calculateGrossSalary(List<Employee> eList) {
+	public double calculateGrossSalary() {
 		double grossSalary = 0;
 		for (Employee e : eList) {
 			grossSalary += e.getSalary();
@@ -134,11 +136,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will calculate the HRA
-	 * @param eList
 	 * @return The HRA value
 	 */
 	@Override
-	public double calculateHRA(List<Employee> eList) {
+	public double calculateHRA() {
 		double grossHRA = 0;
 		for (Employee e : eList)
 			grossHRA += e.getSalary() * 0.01 * Employee.reimburseHRA * 12;
@@ -148,11 +149,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will group the employees into gender category
-	 * @param eList
 	 * @return List of List containing employees in each gender
 	 */
 	@Override
-	public Map<String, List<Employee>> groupByGender(List<Employee> eList) {
+	public Map<String, List<Employee>> groupByGender() {
 		Map<String, List<Employee>> genderMap = new HashMap<>();
 
 		/**
@@ -170,7 +170,7 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 		// 3. & 4. filter and add to Map
 		for (String s : uniqueGenderList) {
-			genderMap.put(s, containsGender(eList, s));
+			genderMap.put(s, containsGender(s));
 		}
 
 		return genderMap;
@@ -182,17 +182,16 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 	 * @param name The name to be searched
 	 * @return (List<Employee>) This list of employees that have 'name' gender
 	 */
-	private List<Employee> containsGender(final List<Employee> list, final String name) {
-		return list.stream().filter(o -> o.getGender().equals(name)).collect(Collectors.toList());
+	private List<Employee> containsGender(final String name) {
+		return eList.stream().filter(o -> o.getGender().equals(name)).collect(Collectors.toList());
 	}
 
 	/**
 	 * This method will sort the employees by Age
-	 * @param eList
 	 * @return The list of employees sorted by age in ascending order
 	 */
 	@Override
-	public List<Employee> sortByName(List<Employee> eList) {
+	public List<Employee> sortByName() {
 		List<Employee> temp = new ArrayList<>(eList);
 		Collections.sort(temp, new NameComparator());
 		return temp;
@@ -200,11 +199,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will sort the employees by Salary
-	 * @param eList
 	 * @return The list of employees sorted by salary in ascending order
 	 */
 	@Override
-	public List<Employee> sortBySalary(List<Employee> eList) {
+	public List<Employee> sortBySalary() {
 		List<Employee> temp = new ArrayList<>(eList);
 		Collections.sort(temp, new SalaryComparator());
 		return temp;
@@ -212,11 +210,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will sort the employees by ID
-	 * @param eList
 	 * @return The list of employees sorted by ID in ascending order
 	 */
 	@Override
-	public List<Employee> sortById(List<Employee> eList) {
+	public List<Employee> sortById() {
 		List<Employee> temp = new ArrayList<>(eList);
 		Collections.sort(temp, new IDComparator());
 		return temp;
@@ -224,11 +221,10 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 
 	/**
 	 * This method will group the employees into 2 category : above or below average salary
-	 * @param eList
 	 * @return List of List containing employees in each above/below av. salary
 	 */
 	@Override
-	public Map<String, List<Employee>> groupByAvSalary(List<Employee> eList) {
+	public Map<String, List<Employee>> groupByAvSalary() {
 		Map<String, List<Employee>> salaryMap = new HashMap<>();
 
 		/**
@@ -268,6 +264,16 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 			return sum / sList.size();
 		}
 		return sum;
+	}
+	
+	public String toString() {
+		String s = "";
+		if(eList.size() > 0) {
+			for(Employee e : eList) {
+				s += e + "\n";
+			}
+		}
+		return s;
 	}
 
 }
