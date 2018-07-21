@@ -266,11 +266,14 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 		return sum;
 	}
 	
+	/**
+	 * This method returns all the details of all the employees
+	 */
 	public String toString() {
 		String s = "";
 		if(eList.size() > 0) {
 			for(Employee e : eList) {
-				s += e + "\n";
+				s += e;
 			}
 		}
 		return s;
