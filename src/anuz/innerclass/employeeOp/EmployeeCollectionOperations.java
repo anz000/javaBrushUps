@@ -35,8 +35,8 @@ public class EmployeeCollectionOperations implements EmployeeOpInterface {
 		@Override
 		public boolean hasNext() {
 			for(int i = index; i<eList.size() ; i++) {
-				if(eList.get(i).getSalary() > iSalary) { // condition check
-					index = i; // returns the index of the next element
+				if(eList.get(i).getSalary() > iSalary) { 	// condition check
+					index = i; 								// returns the index of the next element
 					return true;
 				}
 			}

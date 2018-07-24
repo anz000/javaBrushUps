@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class EmpCollectionApplication {
 
-	private static EmployeeCollectionOperations eOperations = new EmployeeCollectionOperations();
+	private static EmployeeOpInterface eOperations = new EmployeeCollectionOperations();
 	
 	/**
 	 * Main method
@@ -323,10 +323,7 @@ public class EmpCollectionApplication {
 			for(;hSalaryEmpIter.hasNext() ;) {
 				Employee e = hSalaryEmpIter.next();
 				System.out.println(e);
-			}
-			
-			// print the high salary
-			
+			}		
 		}catch( Exception e) {
 			System.out.println(e.getMessage());
 		}
