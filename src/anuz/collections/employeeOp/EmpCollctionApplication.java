@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class EmpCollctionApplication {
 
-	private static EmployeeCollectionOperations eOperations = new EmployeeCollectionOperations();
+	private static EmployeeOpInterface eOperations = new EmployeeCollectionOperations();
 
 	/**
 	 * Main method
