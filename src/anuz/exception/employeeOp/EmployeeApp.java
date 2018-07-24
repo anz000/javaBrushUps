@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class EmployeeApp {
 
 	// this is a static reference that allows operation on Employees
-	public static EmployeeOp empOp = new EmployeeOp();
+	public static EmployeeOpInterface empOp = new EmployeeOp();
 	// this is a static reference that allows scanning inputs
 	public static Scanner scan = new Scanner(System.in);
 
@@ -16,7 +16,7 @@ public class EmployeeApp {
 		// This holds the Employee objects
 		Employee empArr[];
 
-		// Try catch block - handles Erroneous inout types
+		// Try catch block - handles Erroneous input types
 		try {
 
 			int size = getEmployeeCount();
