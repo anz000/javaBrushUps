@@ -1,9 +1,9 @@
-1001, "Mark", 7000.0, "Male"
-1002, "Anuj", 91000.0, "Male"
-100, "Simone", 88000.0, "Female"
-11, "Aaron", 7500.0, "Other"
-21, "Steven", 55000.0, "Male"
-3001, "Wilson", 12000.0, "Female"
-4401, "Varrg", 16000.0, "Female"
-601, "Mikael", 6000.0, "Female"
-1201, "Kevin", 27000.0, "Male"
+1001,Mark,7000,Male,
+1002,Anuj,91000,Male,Error
+100,Simone,88000,Female,
+11,Aaron,7500,Other,
+21,Steven,55000,Male,
+3001,Wilson,12000,Female,
+4401,Varrg,16000,Female,
+601,Mikael,6000,Female,
+1201,Kevin,27000,Male,

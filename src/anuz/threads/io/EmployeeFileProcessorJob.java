@@ -28,6 +28,7 @@ public class EmployeeFileProcessorJob implements Runnable {
 		// A single batch job
 		System.out.println(file + " Thread");
 		
+		
 		// create the batchJob instance and pass the file
 		EmployeeBatchTask jobInstance = new EmployeeBatchTaskRunner(file);
 		jobInstance.readFiles();
