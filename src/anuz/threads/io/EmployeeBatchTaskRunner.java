@@ -11,10 +11,12 @@ public class EmployeeBatchTaskRunner implements EmployeeBatchTask{
 	 */
 	private List<Employee> empList = new ArrayList<>();			// The employee list 
 	private List<String> errorList = new ArrayList<>();			// The CSV data that are corrupted
+	private List<Employee> invalidList = new ArrayList<>();			// The CSV data that are corrupted
 	
 	private File file;						// The file that contains the data 
 	public static String wPath = "output/";	// The output folder where the successful records are written, set it here
-	public static String errPath = "error/";	// The output folder where the successful records are written, set it here
+	public static String errPath = "error/";// The error folder where the corrupted lines
+	public static String invalidPath = "invalid/";// The invalid folder where the corrupted lines
 	
 	/**
 	 * Overloaded Constructor 
@@ -40,7 +42,7 @@ public class EmployeeBatchTaskRunner implements EmployeeBatchTask{
 	@Override
 	public void validateData() {
 		// @ToDo
-		EmployeeValidator eValidator = new EmployeeValidator(empList);
+		EmployeeValidator eValidator = new EmployeeValidator(empList, invalidList);
 		eValidator.runValidator();
 		
 	}
@@ -50,7 +52,7 @@ public class EmployeeBatchTaskRunner implements EmployeeBatchTask{
 	 */
 	@Override
 	public void storeToDB() {
-		EmployeeWriter eWrite = new EmployeeWriter(file.getName(), empList, errorList);
+		EmployeeWriter eWrite = new EmployeeWriter(file.getName(), empList, errorList, invalidList);
 		boolean saveEmployees = eWrite.writeFiles();
 		if(!saveEmployees) {
 			System.out.println("Issue writing files " + file);
