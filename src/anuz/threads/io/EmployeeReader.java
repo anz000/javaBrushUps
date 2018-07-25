@@ -9,12 +9,21 @@ import java.util.StringTokenizer;
 
 
 public class EmployeeReader {
-	File file;
+	File file; // file to be read
 	
+	/**
+	 * Overloaded constructor
+	 * @param file data to be read
+	 */
 	public EmployeeReader(File file) {
 		this.file = file;
 	}
 	
+	/**
+	 * This method reads in the employee data 
+	 * converts them to objects and return the list
+	 * @return
+	 */
 	public List<Employee> readEmployees(){
 		/**
 		 *  parse the files and add it to arrayList
@@ -33,7 +42,7 @@ public class EmployeeReader {
 				// System.out.println(currentLine);
 				List<String> valList = parseEachLine(currentLine); // get all the values in a single line
 
-				if (!valList.isEmpty()) { 						// if arraylist contains the data
+				if (!valList.isEmpty()) { 						// if StringArrayList contains the data
 					// create the employee
 					Employee temp = new Employee(Integer.parseInt(valList.get(0)), valList.get(1),
 							Double.parseDouble(valList.get(2)), valList.get(3));

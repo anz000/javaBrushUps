@@ -23,7 +23,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		// get the files list
-		List<Path> filesList = getFilesList("raw");
+		List<Path> filesList = getFilesList("raw"); // set the input directory path here
 		
 		// create the executor with the thread pool
 		ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -36,11 +36,16 @@ public class Application {
 			
 		}
 		
+		// close the executorSerive once done.
 		executorService.shutdown();
 
 	}
 	
-	
+	/**
+	 * This method scans the given path and returns all the list of files
+	 * @param path
+	 * @return
+	 */
 	public static List<Path> getFilesList(String path) {
 		List<Path> list = null;
 		try (Stream<Path> paths = Files.walk(Paths.get(path))) {

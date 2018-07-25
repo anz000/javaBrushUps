@@ -7,10 +7,17 @@ public class EmployeeValidator {
 	
 	private List<Employee> empList;
 	
+	/**
+	 * Overloaded Constructor 
+	 * @param employees The employees list
+	 */
 	public EmployeeValidator(List<Employee> employees) {
 		this.empList = employees;
 	}
 	
+	/**
+	 * This method will call all the other validators
+	 */
 	public void runValidator() {
 		salaryValidator(); // salary validator
 		// run other validators
@@ -24,7 +31,7 @@ public class EmployeeValidator {
 		while(eIter.hasNext()) {
 			// if salary less than 7000
 			if(eIter.next().getSalary() < 7000) {
-				eIter.remove();
+				eIter.remove(); // remove if less than 7000
 			}
 		}
 	}

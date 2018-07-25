@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Employee{
+	/**
+	 * class variable instances
+	 */
 	private int id;
 	private String name;
 	private double salary;
 	private String gender;
-	
-
-	public final static float reimburseHRA = 5;
 	
 	/**
 	 * Overloaded Constructor
@@ -30,10 +30,17 @@ public class Employee{
 		this.gender = gender;
 	}
 	
+	/**
+	 * This method returns the objects in CSV format
+	 * @return
+	 */
 	public String toCSV() {
 		return id + "," + name + "," + salary + "," + gender;
 	}
 
+	/**
+	 * This method returns toString() for debugging
+	 */
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", gender=" + gender + "]";
