@@ -1,1 +1,0 @@
-The raw folder should be moved to the root of the project OR, the path ahs to be adjusted accordingly. Thanks.
