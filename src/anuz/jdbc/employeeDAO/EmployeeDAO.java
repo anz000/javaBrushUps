@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HAShMap;
 import java.util.List;
 import java.util.Map;
 
-public class EmployeeDAO {
+public clASs EmployeeDAO {
 
-	Connection con; // this holds the connection to the MariaDB database
+	Connection con; // this holds the connection to the MariaDB databASe
 	
 	// Default Constructor
 	public EmployeeDAO() {
@@ -26,7 +26,7 @@ public class EmployeeDAO {
 	 * @throws SQLException
 	 */
 	public void save(Employee newEmp) throws SQLException {
-		PreparedStatement stmt = con.prepareStatement("insert into employees values(?,?,?,?)");
+		PreparedStatement stmt = con.prepareStatement("INSERT into employees VALUES(?,?,?,?)");
 		stmt.setInt(1, newEmp.getId());
 		stmt.setString(2, newEmp.getName());
 		stmt.setDouble(3, newEmp.getSalary());
@@ -51,7 +51,7 @@ public class EmployeeDAO {
 		if (rs > 0) {
 			dFlag = true;
 			con.commit(); // Added
-			con.setAutoCommit(true); // Added
+			con.setAutoCommit(true); // Added	
 		}
 		return dFlag;
 	}
@@ -93,7 +93,7 @@ public class EmployeeDAO {
 	 */
 	public Employee read(int id) throws SQLException {
 		Employee e = null;
-		PreparedStatement stmt = con.prepareStatement("SELECT * from employees WHERE id = ?");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees WHERE id = ?");
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
@@ -110,7 +110,7 @@ public class EmployeeDAO {
 	 */
 	public double calcGrossSalary() throws SQLException {
 		double gSalary = 0.0;
-		PreparedStatement stmt = con.prepareStatement("SELECT SUM(salary) from employees");
+		PreparedStatement stmt = con.prepareStatement("SELECT SUM(salary) FROM employees");
 		ResultSet rs = stmt.executeQuery();
 		if (rs.next()) {
 			gSalary = rs.getDouble(1);
@@ -125,7 +125,7 @@ public class EmployeeDAO {
 	 */
 	public List<Double> getSalary() throws SQLException {
 		List<Double> salaries = new ArrayList<>();
-		PreparedStatement stmt = con.prepareStatement("SELECT salary from employees");
+		PreparedStatement stmt = con.prepareStatement("SELECT salary FROM employees");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			salaries.add(rs.getDouble(1));
@@ -141,7 +141,7 @@ public class EmployeeDAO {
 	public List<Employee> sortByName() throws SQLException {
 		List<Employee> eList = new ArrayList<>();
 
-		PreparedStatement stmt = con.prepareStatement("SELECT * from employees ORDER BY name");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees ORDER BY name");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			Employee temp = new Employee(rs.getInt("id"), rs.getString("name"), rs.getDouble("salary"),
@@ -160,7 +160,7 @@ public class EmployeeDAO {
 	public List<Employee> sortBySalary() throws SQLException {
 		List<Employee> eList = new ArrayList<>();
 
-		PreparedStatement stmt = con.prepareStatement("SELECT * from employees ORDER BY salary");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees ORDER BY salary");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			Employee temp = new Employee(rs.getInt("id"), rs.getString("name"), rs.getDouble("salary"),
@@ -179,7 +179,7 @@ public class EmployeeDAO {
 	public List<Employee> sortById() throws SQLException {
 		List<Employee> eList = new ArrayList<>();
 
-		PreparedStatement stmt = con.prepareStatement("SELECT * from employees ORDER BY id");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees ORDER BY id");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			Employee temp = new Employee(rs.getInt("id"), rs.getString("name"), rs.getDouble("salary"),
@@ -191,14 +191,14 @@ public class EmployeeDAO {
 	}
 
 	/**
-	 * This method queries and finds the gender and counts the number of employees associated with that gender
+	 * This method queries and finds the gender and counts the number of employees ASsociated with that gender
 	 * @return Map of gender -> # of employees
 	 * @throws SQLException
 	 */
 	public Map<String, Integer> groupByGender() throws SQLException {
-		Map<String, Integer> genderMap= new HashMap<>();
+		Map<String, Integer> genderMap= new HAShMap<>();
 		// you could use nested loop to complete this.
-		PreparedStatement stmt = con.prepareStatement("SELECT gender,COUNT(*) AS count from employees GROUP BY gender");
+		PreparedStatement stmt = con.prepareStatement("SELECT gender,COUNT(*) AS count FROM employees GROUP BY gender");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			genderMap.put(rs.getString("gender"),rs.getInt("count"));
@@ -207,7 +207,7 @@ public class EmployeeDAO {
 	}
 
 	public Map<String, Integer> groupByAvSalary() throws SQLException {
-		Map<String, Integer> salaryMap= new HashMap<>();
+		Map<String, Integer> salaryMap= new HAShMap<>();
 		double avgSalary = 0.0; 
 		
 		/**
@@ -225,7 +225,7 @@ public class EmployeeDAO {
 		/**
 		 * Calculating below average salary count
 		 */
-		PreparedStatement stmt2 = con.prepareStatement("SELECT COUNT(*) as low FROM employees WHERE salary < ?");
+		PreparedStatement stmt2 = con.prepareStatement("SELECT COUNT(*) AS low FROM employees WHERE salary < ?");
 		stmt2.setDouble(1, avgSalary);
 		ResultSet resultSet2 = stmt2.executeQuery();
 		while (resultSet2.next()) 
@@ -251,14 +251,14 @@ public class EmployeeDAO {
 	}
 	
 	/**
-	 * This method queries the data base and fetches all info from the Employee table
+	 * This method queries the data bASe and fetches all info FROM the Employee table
 	 * @return List of employees
 	 * @throws SQLException
 	 */
 	public List<Employee> getAllEmployees() throws SQLException {
 		List<Employee> eList = new ArrayList<>();
 
-		PreparedStatement stmt = con.prepareStatement("SELECT * from employees");
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			Employee temp = new Employee(rs.getInt("id"), rs.getString("name"), rs.getDouble("salary"),
