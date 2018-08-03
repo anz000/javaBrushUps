@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HAShMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public clASs EmployeeDAO {
+public class EmployeeDAO {
 
 	Connection con; // this holds the connection to the MariaDB databASe
 	
@@ -196,7 +196,7 @@ public clASs EmployeeDAO {
 	 * @throws SQLException
 	 */
 	public Map<String, Integer> groupByGender() throws SQLException {
-		Map<String, Integer> genderMap= new HAShMap<>();
+		Map<String, Integer> genderMap= new HashMap<>();
 		// you could use nested loop to complete this.
 		PreparedStatement stmt = con.prepareStatement("SELECT gender,COUNT(*) AS count FROM employees GROUP BY gender");
 		ResultSet rs = stmt.executeQuery();
@@ -207,7 +207,7 @@ public clASs EmployeeDAO {
 	}
 
 	public Map<String, Integer> groupByAvSalary() throws SQLException {
-		Map<String, Integer> salaryMap= new HAShMap<>();
+		Map<String, Integer> salaryMap= new HashMap<>();
 		double avgSalary = 0.0; 
 		
 		/**
